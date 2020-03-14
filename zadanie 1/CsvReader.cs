@@ -6,9 +6,9 @@ namespace zadanie_1
 {
     public class CsvReader
     {
-        private readonly List<Student> _students = new List<Student>();
+        private readonly HashSet<Student> _students = new HashSet<Student>(new CustomComparator());
 
-        public List<Student> ReadFile(string path)
+        public HashSet<Student> ReadFile(string path)
         {
             var fileInfo = new FileInfo(path);
             using (var readStream = new StreamReader(fileInfo.OpenRead()))
@@ -20,6 +20,7 @@ namespace zadanie_1
                     _students.Add(student);
                 }
             }
+
             return _students;
         }
 
@@ -32,7 +33,7 @@ namespace zadanie_1
                 LastName = lineTokens[1],
                 Studies = new Studies()
                 {
-                    Major = lineTokens[2], 
+                    Major = lineTokens[2],
                     Mode = lineTokens[3]
                 },
                 IndexNumber = lineTokens[4],
